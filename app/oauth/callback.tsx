@@ -1,14 +1,16 @@
+import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import * as Api from "@/lib/_core/api";
-import * as Auth from "@/lib/_core/auth";
+import * as Api from "@/lib/api";
+import * as Auth from "@/lib/auth";
 import * as Linking from "expo-linking";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function OAuthCallback() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{
     code?: string;
     state?: string;
@@ -235,37 +237,55 @@ export default function OAuthCallback() {
   }, [params.code, params.state, params.error, params.sessionToken, params.user, router]);
 
   return (
-    <SafeAreaView className="flex-1" edges={["top", "bottom", "left", "right"]}>
-      <ThemedView className="flex-1 items-center justify-center gap-4 p-5">
-        {status === "processing" && (
-          <>
-            <ActivityIndicator size="large" />
-            <Text className="mt-4 text-base leading-6 text-center text-foreground">
-              Completing authentication...
-            </Text>
-          </>
-        )}
-        {status === "success" && (
-          <>
-            <Text className="text-base leading-6 text-center text-foreground">
-              Authentication successful!
-            </Text>
-            <Text className="text-base leading-6 text-center text-foreground">
-              Redirecting...
-            </Text>
-          </>
-        )}
-        {status === "error" && (
-          <>
-            <Text className="mb-2 text-xl font-bold leading-7 text-error">
-              Authentication failed
-            </Text>
-            <Text className="text-base leading-6 text-center text-foreground">
-              {errorMessage}
-            </Text>
-          </>
-        )}
-      </ThemedView>
-    </SafeAreaView>
+    <ThemedView
+      style={[
+        styles.container,
+        {
+          // Handle all safe area edges for device notches, corners, and bottom bars
+          paddingTop: Math.max(insets.top, 20),
+          paddingBottom: Math.max(insets.bottom, 20),
+          paddingLeft: Math.max(insets.left, 20),
+          paddingRight: Math.max(insets.right, 20),
+        },
+      ]}
+    >
+      {status === "processing" && (
+        <>
+          <ActivityIndicator size="large" />
+          <ThemedText style={styles.text}>Completing authentication...</ThemedText>
+        </>
+      )}
+      {status === "success" && (
+        <>
+          <ThemedText style={styles.text}>Authentication successful!</ThemedText>
+          <ThemedText style={styles.text}>Redirecting...</ThemedText>
+        </>
+      )}
+      {status === "error" && (
+        <>
+          <ThemedText type="subtitle" style={styles.errorText}>
+            Authentication failed
+          </ThemedText>
+          <ThemedText style={styles.text}>{errorMessage}</ThemedText>
+        </>
+      )}
+    </ThemedView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 16,
+  },
+  text: {
+    marginTop: 16,
+    textAlign: "center",
+  },
+  errorText: {
+    color: "#ff4444",
+    marginBottom: 8,
+  },
+});

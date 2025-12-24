@@ -6,45 +6,14 @@ This guide covers server-side features including authentication, database, tRPC 
 
 ## When Do You Need Backend?
 
-| Scenario | Backend Needed? | User Auth Required? | Solution |
-|----------|-----------------|---------------------|----------|
-| Data stays on device only | No | No | Use `AsyncStorage` |
-| Data syncs across devices | Yes | Yes | Database + tRPC |
-| User accounts / login | Yes | Yes | Manus OAuth |
-| AI-powered features | Yes | **Optional** | LLM Integration |
-| User uploads files | Yes | **Optional** | S3 Storage |
-| Server-side validation | Yes | **Optional** | tRPC procedures |
-
-> **Note:** Backend ≠ User Auth. You can run a backend with LLM/Storage/ImageGen capabilities without requiring user login — just use `publicProcedure` instead of `protectedProcedure`. User auth is only mandatory when you need to identify users or sync user-specific data.
-
----
-
-## File Structure
-
-```
-server/
-  db.ts              ← Query helpers (add database functions here)
-  routers.ts         ← tRPC procedures (add API routes here)
-  storage.ts         ← S3 storage helpers (can extend)
-  _core/             ← Framework-level code (don't modify)
-drizzle/
-  schema.ts          ← Database tables & types (add your tables here)
-  relations.ts       ← Table relationships
-  migrations/        ← Auto-generated migrations
-shared/
-  types.ts           ← Shared TypeScript types
-  const.ts           ← Shared constants
-  _core/             ← Framework-level code (don't modify)
-lib/
-  trpc.ts            ← tRPC client (can customize headers)
-  _core/             ← Framework-level code (don't modify)
-hooks/
-  use-auth.ts        ← Auth state hook (don't modify)
-tests/
-  *.test.ts          ← Add your tests here
-```
-
-Only touch the files with "←" markers. Anything under `_core/` directories is framework-level—avoid editing unless you are extending the infrastructure.
+| Scenario | Backend Needed? | Solution |
+|----------|-----------------|----------|
+| Data stays on device only | No | Use `AsyncStorage` |
+| Data syncs across devices | Yes | Database + tRPC |
+| User accounts / login | Yes | Manus OAuth |
+| AI-powered features | Yes | LLM Integration |
+| User uploads files | Yes | S3 Storage |
+| Server-side validation | Yes | tRPC procedures |
 
 ---
 
@@ -407,7 +376,6 @@ Tips
 - Always call llm functions from server-side code (e.g., inside tRPC procedures), to avoid exposing your API key.
 - You don't need to manually set the model; the helper uses a sensible default.
 - LLM responses often contain markdown. Use `<Streamdown>{content}</Streamdown>` (imported from `streamdown`) to render markdown content with proper formatting and streaming support.
-- For image-based gen AI workflows, local `file://` and blob URLs don't work. Upload to S3 first, then pass the public URL to `invokeLLM()`.
 
 ### Structured Responses (JSON Schema)
 
@@ -897,7 +865,7 @@ import { httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import type { AppRouter } from "@/server/routers";
 import { getApiBaseUrl } from "@/constants/oauth";
-import * as Auth from "@/lib/_core/auth";
+import * as Auth from "@/lib/auth";
 
 /**
  * tRPC React client for type-safe API calls.
@@ -938,8 +906,8 @@ export function createTRPCClient() {
 
 `hooks/use-auth.ts`
 ```ts
-import * as Api from "@/lib/_core/api";
-import * as Auth from "@/lib/_core/auth";
+import * as Api from "@/lib/api";
+import * as Auth from "@/lib/auth";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Platform } from "react-native";
 
@@ -1099,7 +1067,7 @@ type AuthenticatedUser = NonNullable<TrpcContext["user"]>;
 
 function createAuthContext(): { ctx: TrpcContext; clearedCookies: CookieCall[] } {
   const clearedCookies: CookieCall[] = [];
-  
+
   const user: AuthenticatedUser = {
     id: 1,
     openId: "sample-user",
@@ -1111,7 +1079,7 @@ function createAuthContext(): { ctx: TrpcContext; clearedCookies: CookieCall[] }
     updatedAt: new Date(),
     lastSignedIn: new Date(),
   };
-  
+
   const ctx: TrpcContext = {
     user,
     req: {
@@ -1124,12 +1092,11 @@ function createAuthContext(): { ctx: TrpcContext; clearedCookies: CookieCall[] }
       },
     } as TrpcContext["res"],
   };
-  
+
   return { ctx, clearedCookies };
 }
 
-// TODO: Remove `.skip` below once you implement user authentication
-describe.skip("auth.logout", () => {
+describe("auth.logout", () => {
   it("clears the session cookie and reports success", async () => {
     const { ctx, clearedCookies } = createAuthContext();
     const caller = appRouter.createCaller(ctx);

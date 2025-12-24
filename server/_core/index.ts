@@ -6,6 +6,7 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
+import { decodeQRFromBase64 } from "../qr-decode";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise((resolve) => {
@@ -58,6 +59,39 @@ async function startServer() {
 
   app.get("/api/health", (_req, res) => {
     res.json({ ok: true, timestamp: Date.now() });
+  });
+
+  // QR Code decoding endpoint for mobile gallery scanning
+  app.post("/api/qr-decode", async (req, res) => {
+    try {
+      const { image } = req.body;
+      
+      if (!image || typeof image !== "string") {
+        res.status(400).json({
+          success: false,
+          error: "Missing or invalid image data",
+        });
+        return;
+      }
+      
+      // Validate base64 format and reasonable size (max ~10MB base64)
+      if (image.length > 14000000) {
+        res.status(400).json({
+          success: false,
+          error: "Image size too large. Please use a smaller image.",
+        });
+        return;
+      }
+      
+      const result = await decodeQRFromBase64(image);
+      res.json(result);
+    } catch (error) {
+      console.error("[QR Decode API] Error:", error);
+      res.status(500).json({
+        success: false,
+        error: "Server error processing image",
+      });
+    }
   });
 
   app.use(

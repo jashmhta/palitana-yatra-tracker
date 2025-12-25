@@ -25,3 +25,8 @@
 - [x] Run all unit tests
 - [x] Run E2E tests
 - [x] Verify all tests pass (8 tests passed)
+
+## Android Build Fixes
+- [x] Remove expo-barcode-scanner (causing Kotlin compilation errors)
+- [x] Fix NODE_ENV environment variable issue
+- [x] Test Android build successfully (ready for publishing)

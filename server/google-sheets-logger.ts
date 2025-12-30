@@ -31,6 +31,9 @@ class GoogleSheetsLogger {
   private config: GoogleSheetsConfig | null = null;
   private baseUrl = "https://sheets.googleapis.com/v4/spreadsheets";
   private isInitialized = false;
+  private failedScans: ScanLogData[] = [];
+  private retryInterval: ReturnType<typeof setInterval> | null = null;
+  private maxRetryQueueSize = 1000; // Prevent memory issues
 
   /**
    * Initialize the Google Sheets logger with environment variables
@@ -103,17 +106,43 @@ class GoogleSheetsLogger {
   }
 
   /**
-   * Log a scan to Google Sheets
-   * Sheet structure: UUID | Participant Name | Badge | Checkpoint | Device ID | GPS Lat | GPS Lng | Scanned At
+   * Start the retry queue processor
    */
-  async logScan(scanData: ScanLogData): Promise<{ success: boolean; error?: string }> {
-    // Ensure initialized
-    if (!this.isInitialized) {
-      await this.init();
-    }
+  private startRetryProcessor(): void {
+    if (this.retryInterval) return;
+    
+    // Process failed scans every 30 seconds
+    this.retryInterval = setInterval(async () => {
+      if (this.failedScans.length === 0) return;
+      
+      console.log(`[GoogleSheetsLogger] Retrying ${this.failedScans.length} failed scans...`);
+      
+      const scansToRetry = [...this.failedScans];
+      this.failedScans = [];
+      
+      for (const scan of scansToRetry) {
+        const result = await this.logScanDirect(scan);
+        if (!result.success) {
+          // Add back to queue if still failing (up to max size)
+          if (this.failedScans.length < this.maxRetryQueueSize) {
+            this.failedScans.push(scan);
+          } else {
+            console.error(`[GoogleSheetsLogger] Dropping scan ${scan.uuid} - retry queue full`);
+          }
+        }
+      }
+      
+      if (this.failedScans.length > 0) {
+        console.log(`[GoogleSheetsLogger] ${this.failedScans.length} scans still pending retry`);
+      }
+    }, 30000);
+  }
 
+  /**
+   * Direct log to Google Sheets (no retry queue)
+   */
+  private async logScanDirect(scanData: ScanLogData): Promise<{ success: boolean; error?: string }> {
     if (!this.config || !this.config.enabled) {
-      // Silently skip if not configured
       return { success: true };
     }
 
@@ -126,7 +155,7 @@ class GoogleSheetsLogger {
         scanData.deviceId || "",
         scanData.gpsLat || "",
         scanData.gpsLng || "",
-        scanData.scannedAt.toISOString(),
+        scanData.scannedAt instanceof Date ? scanData.scannedAt.toISOString() : scanData.scannedAt,
       ];
 
       const url = `${this.baseUrl}/${this.config.spreadsheetId}/values/ScanLogs:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS&key=${this.config.apiKey}`;
@@ -159,6 +188,37 @@ class GoogleSheetsLogger {
         error: error instanceof Error ? error.message : "Unknown error" 
       };
     }
+  }
+
+  /**
+   * Log a scan to Google Sheets with automatic retry on failure
+   * Sheet structure: UUID | Participant Name | Badge | Checkpoint | Device ID | GPS Lat | GPS Lng | Scanned At
+   */
+  async logScan(scanData: ScanLogData): Promise<{ success: boolean; error?: string }> {
+    // Ensure initialized
+    if (!this.isInitialized) {
+      await this.init();
+    }
+
+    if (!this.config || !this.config.enabled) {
+      // Silently skip if not configured
+      return { success: true };
+    }
+
+    // Start retry processor if not running
+    this.startRetryProcessor();
+
+    const result = await this.logScanDirect(scanData);
+    
+    if (!result.success) {
+      // Add to retry queue
+      if (this.failedScans.length < this.maxRetryQueueSize) {
+        this.failedScans.push(scanData);
+        console.log(`[GoogleSheetsLogger] Added scan to retry queue (${this.failedScans.length} pending)`);
+      }
+    }
+    
+    return result;
   }
 
   /**

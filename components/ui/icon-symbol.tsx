@@ -64,6 +64,9 @@ const MAPPING = {
   "bolt.fill": "bolt",
   "speaker.wave.2.fill": "volume-up",
   "speaker.slash.fill": "volume-off",
+  // Additional icons for enhanced UI
+  "xmark": "close",
+  "clock": "access-time",
 } as IconMapping;
 
 /**

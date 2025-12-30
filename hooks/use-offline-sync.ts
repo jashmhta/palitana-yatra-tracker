@@ -24,14 +24,27 @@ const STORAGE_KEYS = {
   DEVICE_ID: "palitana_device_id",
 };
 
-// Sync configuration
+// Sync configuration - optimized for 25+ concurrent volunteers
 const SYNC_CONFIG = {
-  POLL_INTERVAL_ONLINE: 5000,    // 5 seconds when online
+  POLL_INTERVAL_ONLINE: 5000,    // 5 seconds when online - fast enough for real-time feel
   POLL_INTERVAL_OFFLINE: 30000,  // 30 seconds when offline (check connectivity)
-  RETRY_DELAY: 2000,             // 2 seconds between retries
-  MAX_RETRIES: 5,                // Max retries before giving up
+  BASE_RETRY_DELAY: 1000,        // Base delay for exponential backoff (1 second)
+  MAX_RETRY_DELAY: 30000,        // Maximum retry delay (30 seconds)
+  MAX_RETRIES: 10,               // Max retries before marking as failed
   BATCH_SIZE: 50,                // Max scans to sync at once
 };
+
+/**
+ * Calculate exponential backoff delay
+ * @param retryCount - Number of retries so far
+ * @returns Delay in milliseconds
+ */
+function getRetryDelay(retryCount: number): number {
+  const delay = SYNC_CONFIG.BASE_RETRY_DELAY * Math.pow(2, retryCount);
+  // Add jitter to prevent thundering herd
+  const jitter = Math.random() * 500;
+  return Math.min(delay + jitter, SYNC_CONFIG.MAX_RETRY_DELAY);
+}
 
 interface PendingScan {
   id: string;
@@ -55,11 +68,13 @@ interface SyncStatus {
 
 /**
  * Generate a unique device ID for this installation
+ * Uses crypto.randomUUID for cryptographically secure IDs
  */
 async function getOrCreateDeviceId(): Promise<string> {
   let deviceId = await AsyncStorage.getItem(STORAGE_KEYS.DEVICE_ID);
   if (!deviceId) {
-    deviceId = `device-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    // Use crypto.randomUUID for secure, unique device identification
+    deviceId = `device-${crypto.randomUUID()}`;
     await AsyncStorage.setItem(STORAGE_KEYS.DEVICE_ID, deviceId);
   }
   return deviceId;
@@ -351,7 +366,7 @@ export function useOfflineSync() {
   );
 
   /**
-   * Sync all pending scans to the server
+   * Sync all pending scans to the server with exponential backoff
    */
   const syncPendingScans = useCallback(async () => {
     if (!isOnline || isSyncing || pendingScans.length === 0) {
@@ -362,15 +377,25 @@ export function useOfflineSync() {
     setSyncError(null);
 
     try {
-      // Process scans in batches
-      const scansToSync = pendingScans.slice(0, SYNC_CONFIG.BATCH_SIZE);
+      // Sort by retry count (prioritize scans with fewer retries)
+      const sortedScans = [...pendingScans].sort((a, b) => a.retryCount - b.retryCount);
+      const scansToSync = sortedScans.slice(0, SYNC_CONFIG.BATCH_SIZE);
       
       for (const scan of scansToSync) {
         if (!isMountedRef.current) break;
-        await syncSingleScan(scan);
         
-        // Small delay between syncs to avoid overwhelming the server
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        // Apply exponential backoff based on retry count
+        if (scan.retryCount > 0) {
+          const delay = getRetryDelay(scan.retryCount);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+        }
+        
+        const success = await syncSingleScan(scan);
+        
+        // Small delay between successful syncs to avoid overwhelming the server
+        if (success) {
+          await new Promise((resolve) => setTimeout(resolve, 50));
+        }
       }
 
       // Update last sync time

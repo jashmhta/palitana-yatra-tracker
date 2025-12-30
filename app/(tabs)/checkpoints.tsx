@@ -11,7 +11,8 @@ import { DEFAULT_CHECKPOINTS } from "@/constants/checkpoints";
 import { Colors, Radius, Shadows, Spacing, Typography } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useResponsive } from "@/hooks/use-responsive";
-import { useParticipants, useScanLogs, useSettings } from "@/hooks/use-storage";
+import { useSettings } from "@/hooks/use-storage";
+import { useOfflineSync } from "@/hooks/use-offline-sync";
 import { CheckpointWithStats } from "@/types";
 
 export default function CheckpointsScreen() {
@@ -22,8 +23,7 @@ export default function CheckpointsScreen() {
   const { t } = useLanguage();
 
   const { settings, updateSettings } = useSettings();
-  const { participants } = useParticipants();
-  const { scanLogs } = useScanLogs();
+  const { participants, scanLogs } = useOfflineSync();
 
   // Calculate stats for each checkpoint
   const checkpointsWithStats: CheckpointWithStats[] = DEFAULT_CHECKPOINTS.map((checkpoint) => {

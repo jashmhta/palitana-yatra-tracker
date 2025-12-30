@@ -17,15 +17,28 @@ import { googleSheetsLogger } from "./google-sheets-logger";
 import { DEFAULT_CHECKPOINTS } from "../constants/checkpoints";
 
 let _db: ReturnType<typeof drizzle> | null = null;
+let _connectionAttempts = 0;
+const MAX_CONNECTION_ATTEMPTS = 3;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
+/**
+ * Lazily create the drizzle instance with connection pooling.
+ * Optimized for 25+ concurrent volunteers.
+ */
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  if (!_db && process.env.DATABASE_URL && _connectionAttempts < MAX_CONNECTION_ATTEMPTS) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      _connectionAttempts++;
+      // Connection string includes pooling parameters
+      const connectionUrl = process.env.DATABASE_URL.includes('?') 
+        ? process.env.DATABASE_URL 
+        : `${process.env.DATABASE_URL}?connectionLimit=20&waitForConnections=true&queueLimit=50`;
+      _db = drizzle(connectionUrl);
+      console.log("[Database] Connected successfully with connection pooling");
     } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
+      console.warn(`[Database] Connection attempt ${_connectionAttempts} failed:`, error);
       _db = null;
+      // Reset attempts after some time to allow retry
+      setTimeout(() => { _connectionAttempts = 0; }, 30000);
     }
   }
   return _db;

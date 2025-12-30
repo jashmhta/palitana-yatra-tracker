@@ -15,7 +15,8 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { DEFAULT_CHECKPOINTS, TOTAL_CHECKPOINTS } from "@/constants/checkpoints";
 import { Colors, Radius, Shadows, Spacing, Typography } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { getParticipantsWithProgress, useParticipants, useScanLogs } from "@/hooks/use-storage";
+import { useOfflineSync } from "@/hooks/use-offline-sync";
+import { getParticipantsWithProgress } from "@/hooks/use-storage";
 
 // Animated Progress Ring Component
 function ProgressRing({
@@ -71,8 +72,7 @@ export default function ReportsScreen() {
   const [isExporting, setIsExporting] = useState(false);
   const [selectedDay, setSelectedDay] = useState<1 | 2 | "all">("all");
 
-  const { participants } = useParticipants();
-  const { scanLogs } = useScanLogs();
+  const { participants, scanLogs } = useOfflineSync();
 
   const participantsWithProgress = useMemo(
     () => getParticipantsWithProgress(participants, scanLogs),

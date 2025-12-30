@@ -28,10 +28,10 @@ import { useNetwork } from "@/hooks/use-network";
 import {
   clearSyncQueue,
   getSyncQueue,
-  useParticipants,
   useScanLogs,
   useSettings,
 } from "@/hooks/use-storage";
+import { useUnifiedData } from "@/hooks/use-unified-data";
 
 export default function SettingsScreen() {
   const colorScheme = useColorScheme();
@@ -41,7 +41,7 @@ export default function SettingsScreen() {
   const { t } = useLanguage();
 
   const { settings, updateSettings } = useSettings();
-  const { participants, addParticipant, clearAll: clearParticipants } = useParticipants();
+  const { participants, addParticipant, isAddingParticipant } = useUnifiedData();
   const { scanLogs, markAsSynced, getUnsyncedLogs, clearAll: clearScanLogs } = useScanLogs();
 
   const [pendingCount, setPendingCount] = useState(0);
@@ -112,19 +112,26 @@ export default function SettingsScreen() {
   };
 
   const handleAddParticipant = async () => {
-    if (!newParticipant.name.trim() || !newParticipant.mobile.trim()) {
-      Alert.alert("Error", "Please enter both name and mobile number.");
+    if (!newParticipant.name.trim()) {
+      Alert.alert("Error", "Please enter a name.");
       return;
     }
 
-    await addParticipant({
+    const result = await addParticipant({
       name: newParticipant.name.trim(),
       mobile: newParticipant.mobile.trim(),
     });
 
-    setNewParticipant({ name: "", mobile: "" });
-    setShowAddParticipant(false);
-    Alert.alert("Success", "Participant added successfully.");
+    if (result.success) {
+      setNewParticipant({ name: "", mobile: "" });
+      setShowAddParticipant(false);
+      Alert.alert(
+        "Success", 
+        `Participant "${result.participant?.name}" added successfully!\n\nQR Token: ${result.participant?.qrToken}\n\nThis participant is now visible to all volunteers.`
+      );
+    } else {
+      Alert.alert("Error", result.error || "Failed to add participant. Please try again.");
+    }
   };
 
   const handleSaveSheetsConfig = async () => {
@@ -151,8 +158,7 @@ export default function SettingsScreen() {
 
   const doClearAllData = async () => {
     try {
-      // Clear participants and scan logs using hooks (updates UI immediately)
-      await clearParticipants();
+      // Clear local scan logs cache
       await clearScanLogs();
       
       // Clear sync queue from AsyncStorage
@@ -162,6 +168,9 @@ export default function SettingsScreen() {
       await AsyncStorage.setItem("palitana_data_cleared", "true");
       // Reset pending count
       setPendingCount(0);
+      
+      // Note: Participants are stored in the database and cannot be cleared from here.
+      // This only clears local cache. Database data persists for all volunteers.
       
       // Show success message
       if (Platform.OS === "web") {

@@ -332,3 +332,28 @@
 ## Data Cleanup
 - [x] Clear all scan logs from database (keep 417 participants)
 - [x] Verify participants remain intact after cleanup (417 confirmed)
+
+
+## UI/UX and Aesthetics Audit
+- [x] Review onboarding screens
+- [x] Review scanner/home screen
+- [x] Review participants screen
+- [x] Review checkpoints screen
+- [x] Review reports screen
+- [x] Review settings screen
+
+### Issues Found:
+1. [x] Checkpoints header says "16 locations" but only 3 checkpoints exist - FIXED
+2. [x] Reports Day tabs say "Checkpoints 1-8" and "9-16" - FIXED to 1-3
+3. [ ] All checkpoints show "Day 1" - DATA CONFIG (all 3 are Day 1 checkpoints)
+4. [ ] Participant names have inconsistent capitalization - DATA ISSUE (from import)
+5. [x] Badge numbers not sequential in list - OK (sorted by name)
+6. [x] Settings "Last Sync" text overlapping - FIXED (reduced font size)
+7. [x] Scanner empty state message improved - FIXED (clearer instruction)
+
+
+## Tab Bar Redesign - Center Scan Button
+- [ ] Redesign tab bar with center floating scan button (like MobiKwik)
+- [ ] Remove large floating scan button from home screen
+- [ ] Keep scan button prominent and accessible from all screens
+- [ ] Maintain 5 tabs: Scanner, Checkpoints, Scan (center), Pilgrims, Reports, Settings

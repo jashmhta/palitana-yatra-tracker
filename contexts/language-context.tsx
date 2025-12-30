@@ -302,7 +302,7 @@ export const translations: Record<Language, Translations> = {
     
     qr_card_title: "QR Card",
     qr_card_pilgrim_id: "Pilgrim ID",
-    qr_card_scan_instruction: "Scan this QR code at each checkpoint",
+    qr_card_scan_instruction: "Tap the orange button below to scan pilgrim QR codes",
     qr_card_share_image: "Share as Image",
     qr_card_export_print: "Export for Print",
     
@@ -359,7 +359,7 @@ export const translations: Record<Language, Translations> = {
     settings_offline: "Offline",
     settings_pending: "pending",
     
-    checkpoints_subtitle: "16 locations across the pilgrimage",
+    checkpoints_subtitle: "3 checkpoints across the pilgrimage",
     checkpoints_active: "Active",
     checkpoints_scans: "Scans",
     checkpoints_no_scans: "No scans yet",
@@ -483,7 +483,7 @@ export const translations: Record<Language, Translations> = {
     
     qr_card_title: "QR कार्ड",
     qr_card_pilgrim_id: "यात्री ID",
-    qr_card_scan_instruction: "प्रत्येक चेकपॉइंट पर इस QR कोड को स्कैन करें",
+    qr_card_scan_instruction: "तीर्थयात्री QR कोड स्कैन करने के लिए नीचे नारंगी बटन दबाएं",
     qr_card_share_image: "छवि के रूप में साझा करें",
     qr_card_export_print: "प्रिंट के लिए निर्यात करें",
     
@@ -540,7 +540,7 @@ export const translations: Record<Language, Translations> = {
     settings_offline: "ऑफलाइन",
     settings_pending: "लंबित",
     
-    checkpoints_subtitle: "तीर्थयात्रा में 16 स्थान",
+    checkpoints_subtitle: "तीर्थयात्रा में 3 चेकपॉइंट",
     checkpoints_active: "सक्रिय",
     checkpoints_scans: "स्कैन",
     checkpoints_no_scans: "अभी तक कोई स्कैन नहीं",
@@ -664,7 +664,7 @@ export const translations: Record<Language, Translations> = {
     
     qr_card_title: "QR કાર્ડ",
     qr_card_pilgrim_id: "યાત્રાળુ ID",
-    qr_card_scan_instruction: "દરેક ચેકપોઇન્ટ પર આ QR કોડ સ્કેન કરો",
+    qr_card_scan_instruction: "યાત્રાળુ QR કોડ સ્કેન કરવા નીચે નારંગી બટન દબાવો",
     qr_card_share_image: "ઇમેજ તરીકે શેર કરો",
     qr_card_export_print: "પ્રિન્ટ માટે નિકાસ કરો",
     
@@ -721,7 +721,7 @@ export const translations: Record<Language, Translations> = {
     settings_offline: "ઑફલાઇન",
     settings_pending: "બાકી",
     
-    checkpoints_subtitle: "યાત્રામાં 16 સ્થળો",
+    checkpoints_subtitle: "યાત્રામાં 3 ચેકપોઇન્ટ",
     checkpoints_active: "સક્રિય",
     checkpoints_scans: "સ્કેન",
     checkpoints_no_scans: "હજુ સુધી કોઈ સ્કેન નથી",

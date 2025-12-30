@@ -574,7 +574,7 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weight.semibold,
   },
   statusSubtitle: {
-    fontSize: Typography.size.sm,
+    fontSize: Typography.size.xs,
     marginTop: 2,
   },
   pendingBadge: {

@@ -27,6 +27,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { useFocusEffect } from "expo-router";
 import { DayPicker } from "@/components/day-picker";
 import { OfflineBanner } from "@/components/offline-banner";
 import { SyncStatusBar } from "@/components/sync-status-bar";
@@ -169,6 +170,34 @@ export default function ScannerScreen() {
     },
     [isProcessing, participants, addScan, settings.currentCheckpoint]
   );
+
+  // Auto-open scanner when screen is focused (from tab bar center button)
+  useFocusEffect(
+    useCallback(() => {
+      // Small delay to ensure screen is ready
+      const timer = setTimeout(() => {
+        if (!isScannerOpen && !lastScanResult) {
+          openScannerDirect();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }, [])
+  );
+
+  const openScannerDirect = async () => {
+    if (!permission?.granted) {
+      const result = await requestPermission();
+      if (!result.granted) {
+        setLastScanResult({
+          success: false,
+          message: "Camera permission is required to scan QR codes.",
+        });
+        return;
+      }
+    }
+    setLastScanResult(null);
+    setIsScannerOpen(true);
+  };
 
   const openScanner = async () => {
     scanButtonScale.value = withSequence(
@@ -742,25 +771,8 @@ export default function ScannerScreen() {
         )}
       </View>
 
-      {/* Floating Scan Button */}
-      <View style={[styles.scanButtonContainer, { paddingBottom: Math.max(insets.bottom, 20) + 70 }]}>
-        {/* Pulse ring */}
-        <Animated.View style={[styles.pulseRing, { backgroundColor: colors.primary }, pulseStyle]} />
-        
-        <AnimatedPressable
-          style={[styles.scanButton, scanButtonStyle]}
-          onPress={openScanner}
-        >
-          <LinearGradient
-            colors={[colors.gradientPrimaryStart, colors.gradientPrimaryEnd]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.scanButtonGradient}
-          >
-            <IconSymbol name="qrcode.viewfinder" size={48} color="#FFFFFF" />
-          </LinearGradient>
-        </AnimatedPressable>
-      </View>
+      {/* Scan Button - Now in Tab Bar Center */}
+      {/* Tap the center tab bar button to scan */}
 
       {renderModals()}
     </ThemedView>

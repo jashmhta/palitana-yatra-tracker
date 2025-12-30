@@ -24,13 +24,13 @@ const DAY_INFO = {
     title: "Day 1",
     subtitle: "Ascent",
     icon: "arrow.up.circle.fill" as const,
-    checkpoints: "1-8",
+    checkpoints: "1-3",
   },
   2: {
     title: "Day 2",
     subtitle: "Descent",
     icon: "arrow.down.circle.fill" as const,
-    checkpoints: "9-16",
+    checkpoints: "1-3",
   },
 };
 

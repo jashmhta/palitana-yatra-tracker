@@ -240,7 +240,7 @@ export default function ReportsScreen() {
                 Day {selectedDay} - {selectedDay === 1 ? "Ascent" : "Descent"}
               </ThemedText>
               <ThemedText style={[styles.dayBannerSubtitle, { color: colors.textSecondary }]}>
-                Showing checkpoints {selectedDay === 1 ? "1-8" : "9-16"} only
+                Showing checkpoints {selectedDay === 1 ? "1-3" : "1-3"} only
               </ThemedText>
             </View>
           </Animated.View>

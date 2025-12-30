@@ -1,3 +1,0 @@
-Total statements: 417
-Batch size: 10
-Number of batches: 42

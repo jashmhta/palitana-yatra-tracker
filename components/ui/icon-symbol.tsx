@@ -9,21 +9,65 @@ type IconMapping = Record<SymbolViewProps["name"], ComponentProps<typeof Materia
 type IconSymbolName = keyof typeof MAPPING;
 
 /**
- * Add your SF Symbols to Material Icons mappings here.
- * - see Material Icons in the [Icons Directory](https://icons.expo.fyi).
- * - see SF Symbols in the [SF Symbols](https://developer.apple.com/sf-symbols/) app.
+ * SF Symbols to Material Icons mappings for Palitana Yatra Tracker
  */
 const MAPPING = {
+  // Tab bar icons
   "house.fill": "home",
+  "list.bullet": "list",
+  "person.2.fill": "people",
+  "chart.bar.fill": "bar-chart",
+  "gearshape.fill": "settings",
+  // Action icons
+  "qrcode.viewfinder": "qr-code-scanner",
+  "qrcode": "qr-code",
+  "checkmark.circle.fill": "check-circle",
+  "checkmark.seal.fill": "verified",
+  "checkmark": "check",
+  "xmark.circle.fill": "cancel",
+  "arrow.clockwise": "refresh",
+  "square.and.arrow.up": "share",
+  "magnifyingglass": "search",
+  "chevron.right": "chevron-right",
+  "chevron.left": "chevron-left",
+  "plus": "add",
+  "trash.fill": "delete",
+  "pencil": "edit",
+  "doc.text": "description",
+  "doc.fill": "article",
+  "photo": "photo",
+  "arrow.down.doc.fill": "download",
+  "arrow.up.doc.fill": "upload",
+  "clock.fill": "schedule",
+  "location.fill": "location-on",
+  "wifi.slash": "wifi-off",
+  "wifi": "wifi",
+  "icloud.and.arrow.up": "cloud-upload",
+  "icloud.and.arrow.down": "cloud-download",
+  "exclamationmark.triangle.fill": "warning",
+  "info.circle.fill": "info",
+  "camera.fill": "camera-alt",
   "paperplane.fill": "send",
   "chevron.left.forwardslash.chevron.right": "code",
-  "chevron.right": "chevron-right",
+  // Calendar and day icons
+  "calendar": "calendar-today",
+  "calendar.badge.clock": "event",
+  "arrow.up.circle.fill": "arrow-circle-up",
+  "arrow.down.circle.fill": "arrow-circle-down",
+  // Contact icons
+  "phone.fill": "phone",
+  "phone.circle.fill": "phone-in-talk",
+  "person.crop.circle.badge.exclamationmark": "contact-emergency",
+  "heart.text.square.fill": "medical-services",
+  "cross.case.fill": "local-hospital",
+  // Status icons
+  "bolt.fill": "bolt",
+  "speaker.wave.2.fill": "volume-up",
+  "speaker.slash.fill": "volume-off",
 } as IconMapping;
 
 /**
  * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
- * This ensures a consistent look across platforms, and optimal resource usage.
- * Icon `name`s are based on SF Symbols and require manual mapping to Material Icons.
  */
 export function IconSymbol({
   name,

@@ -1,0 +1,18 @@
+INSERT INTO participants (uuid, name, mobile, qrToken, emergencyContact, photoUri, bloodGroup, age, createdAt, updatedAt) VALUES
+('f0b728fc-453a-48df-b338-75b59bd64d24', 'Esha', '8459797570', 'PALITANA_YATRA_401', '8459797570', 'https://drive.google.com/open?id=14E-pA9-jeENBbHAeR7b0Tez0DPpykHm2', 'A +ve', 26, NOW(), NOW()),
+('cb60dcdb-5156-489a-8812-5eb58d3698ae', 'Jeenali Shah', '9372197799', 'PALITANA_YATRA_402', '9372197799', 'https://drive.google.com/open?id=1Vg1AA2QDOJGnGB0qMQLcjqVvBjDCC0_5', 'B +ve', 20, NOW(), NOW()),
+('f6176047-f6f1-4656-8643-14801e6986f1', 'Siddhi Shah', '9373329244', 'PALITANA_YATRA_403', '9373329244', 'https://drive.google.com/open?id=1fXO0GH_QPX1CoYMm9UkEQa0oTbkBnEun', 'B +ve', 22, NOW(), NOW()),
+('3409b620-ca50-49b0-83c2-ef9040e0d577', 'Hetvi Shah', '9049038089', 'PALITANA_YATRA_404', '9049038089', NULL, NULL, NULL, NOW(), NOW()),
+('58560809-994d-4c6b-b24a-39db073e751e', 'Moksha Jain', '9201696457', 'PALITANA_YATRA_405', '9201696457', 'https://drive.google.com/open?id=1dOtmgJuoH1kqRcul5IPOjOT2OTxLpfYq', 'O +ve', 16, NOW(), NOW()),
+('4f652835-b049-4633-8d81-0bfdd4a700d4', 'Siddhi Gudhka', '9834083806', 'PALITANA_YATRA_406', '9834083806', 'https://drive.google.com/open?id=1vUUkskyOHLvQD2WdbfTslGaJPvssGa4f', 'B +ve', 26, NOW(), NOW()),
+('07e21f13-4242-4eb7-88ee-789786d6f945', 'Shreya Shah', '7226890093', 'PALITANA_YATRA_407', '7226890093', 'https://drive.google.com/open?id=1x9PQhX_6DF9cefHdkt0YD_5HTSjo91nd', 'B +ve', 22, NOW(), NOW()),
+('5169671b-4bba-4fc2-acef-f10f4da76eae', 'Hesha Shah', '7622043820', 'PALITANA_YATRA_408', '7622043820', NULL, NULL, NULL, NOW(), NOW()),
+('c6d7b53b-7529-4872-904f-f78671ef0861', 'Aangi Shah', '9173035986', 'PALITANA_YATRA_409', '9173035986', 'https://drive.google.com/open?id=1WU62vm1cWMpkOpztfXMvMy9RVIXZzIe1', 'A +ve', 22, NOW(), NOW()),
+('fa7be63a-ef88-4c4d-ad07-d31cad63db22', 'Hetvi Shah Insta', '9426172768', 'PALITANA_YATRA_410', '9426172768', NULL, NULL, NULL, NOW(), NOW()),
+('394e2b21-10fe-4c04-9ab2-348ea8ecca1c', 'Priyanka Kataria', '8971996137', 'PALITANA_YATRA_411', '8971996137', 'https://drive.google.com/open?id=1Q2Bw9ATHhWI-YnWZG4CPkzxXyDJEvmD9', 'O +ve', 29, NOW(), NOW()),
+('45dc47ef-4092-4012-a866-0ed20292ec08', 'Kinjal Parekh', '8320063574', 'PALITANA_YATRA_412', '8320063574', 'https://drive.google.com/open?id=1XFWVeSQaTTX72SnVjYSn1tLySDGiXDL5', 'B +ve', 22, NOW(), NOW()),
+('c8ea483b-c45d-4276-8a3b-2a0a32f89861', 'Archana Sheth', '7069835119', 'PALITANA_YATRA_413', '7069835119', 'https://drive.google.com/open?id=1il7YTPqXa1QSSrdXEvqRqR_as7uW_rLX', 'B +ve', 52, NOW(), NOW()),
+('38813a1c-9574-463f-adb0-06072ecb3272', 'Sheetal Murar', '9755283303', 'PALITANA_YATRA_414', '9755283303', 'https://drive.google.com/open?id=1MYM5-0i3DgJk61CATCxE3giRrtVxYw5G', 'B +ve', 43, NOW(), NOW()),
+('04341ffd-1aca-42ca-918d-da06f94cd878', 'Jinisha Mehta', '9826319193', 'PALITANA_YATRA_415', '9826319193', 'https://drive.google.com/open?id=1wsMv54txo7y7jIHsRdlVrqjq2hKlaT2T', 'O +ve', 14, NOW(), NOW()),
+('0da21b1e-8727-4e5c-a955-083a198f9d73', 'Vaishali Doshi', '9173623930', 'PALITANA_YATRA_416', '9173623930', NULL, NULL, NULL, NOW(), NOW()),
+('efb140e5-07ac-405c-a4dd-2001534e0e6e', 'Moksha Shah', '9427608729', 'PALITANA_YATRA_417', '9427608729', 'https://drive.google.com/open?id=1WDaZ3bK-waxZUJWNPp7IbYuV3Ww7yvt3', 'AB +ve', 23, NOW(), NOW());

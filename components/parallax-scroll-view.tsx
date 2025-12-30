@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactElement } from "react";
-import { View } from "react-native";
+import { StyleSheet } from "react-native";
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -8,52 +8,55 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useColors } from "@/hooks/use-colors";
+import { ThemedView } from "@/components/themed-view";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { useThemeColor } from "@/hooks/use-theme-color";
 
 const HEADER_HEIGHT = 250;
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
-  headerBackgroundColor?: string;
+  headerBackgroundColor: { dark: string; light: string };
 }>;
 
-/**
- * A scroll view with parallax header effect.
- * Note: Animated components require style objects for dynamic animations.
- */
 export default function ParallaxScrollView({
   children,
   headerImage,
   headerBackgroundColor,
 }: Props) {
-  const colors = useColors();
+  const backgroundColor = useThemeColor({}, "background");
+  const colorScheme = useColorScheme() ?? "light";
   const insets = useSafeAreaInsets();
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollOffset(scrollRef);
 
+  // Include top safe area inset in header height for proper layout
   const headerHeight = HEADER_HEIGHT + insets.top;
 
-  const headerAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateY: interpolate(
-          scrollOffset.value,
-          [-headerHeight, 0, headerHeight],
-          [-headerHeight / 2, 0, headerHeight * 0.75],
-        ),
-      },
-      {
-        scale: interpolate(scrollOffset.value, [-headerHeight, 0, headerHeight], [2, 1, 1]),
-      },
-    ],
-  }));
+  const headerAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolate(
+            scrollOffset.value,
+            [-headerHeight, 0, headerHeight],
+            [-headerHeight / 2, 0, headerHeight * 0.75],
+          ),
+        },
+        {
+          scale: interpolate(scrollOffset.value, [-headerHeight, 0, headerHeight], [2, 1, 1]),
+        },
+      ],
+    };
+  });
 
   return (
     <Animated.ScrollView
       ref={scrollRef}
-      style={{ backgroundColor: colors.background, flex: 1 }}
+      style={{ backgroundColor, flex: 1 }}
       contentContainerStyle={{
         paddingBottom: insets.bottom,
+        // Handle left/right insets for landscape mode (device corners)
         paddingLeft: insets.left,
         paddingRight: insets.right,
       }}
@@ -61,9 +64,9 @@ export default function ParallaxScrollView({
     >
       <Animated.View
         style={[
+          styles.header,
           {
-            overflow: "hidden",
-            backgroundColor: headerBackgroundColor ?? colors.primary,
+            backgroundColor: headerBackgroundColor[colorScheme],
             height: headerHeight,
             paddingTop: insets.top,
           },
@@ -72,9 +75,22 @@ export default function ParallaxScrollView({
       >
         {headerImage}
       </Animated.View>
-      <View className="flex-1 p-8 gap-4 overflow-hidden bg-background">
-        {children}
-      </View>
+      <ThemedView style={styles.content}>{children}</ThemedView>
     </Animated.ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    overflow: "hidden",
+  },
+  content: {
+    flex: 1,
+    padding: 32,
+    gap: 16,
+    overflow: "hidden",
+  },
+});

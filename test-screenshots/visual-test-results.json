@@ -1,0 +1,482 @@
+[
+  {
+    "device": "iPhone_SE",
+    "page": "home",
+    "viewport": {
+      "width": 320,
+      "height": 568
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_SE_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 3569
+  },
+  {
+    "device": "iPhone_SE",
+    "page": "participants",
+    "viewport": {
+      "width": 320,
+      "height": 568
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_SE_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1914
+  },
+  {
+    "device": "iPhone_SE",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 320,
+      "height": 568
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_SE_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1918
+  },
+  {
+    "device": "iPhone_SE",
+    "page": "settings",
+    "viewport": {
+      "width": 320,
+      "height": 568
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_SE_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1869
+  },
+  {
+    "device": "iPhone_8",
+    "page": "home",
+    "viewport": {
+      "width": 375,
+      "height": 667
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_8_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1608
+  },
+  {
+    "device": "iPhone_8",
+    "page": "participants",
+    "viewport": {
+      "width": 375,
+      "height": 667
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_8_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1827
+  },
+  {
+    "device": "iPhone_8",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 375,
+      "height": 667
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_8_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1820
+  },
+  {
+    "device": "iPhone_8",
+    "page": "settings",
+    "viewport": {
+      "width": 375,
+      "height": 667
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_8_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1835
+  },
+  {
+    "device": "iPhone_12",
+    "page": "home",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_12_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1583
+  },
+  {
+    "device": "iPhone_12",
+    "page": "participants",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_12_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1821
+  },
+  {
+    "device": "iPhone_12",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_12_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1829
+  },
+  {
+    "device": "iPhone_12",
+    "page": "settings",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_12_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1844
+  },
+  {
+    "device": "iPhone_13",
+    "page": "home",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_13_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1663
+  },
+  {
+    "device": "iPhone_13",
+    "page": "participants",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_13_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1854
+  },
+  {
+    "device": "iPhone_13",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_13_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1810
+  },
+  {
+    "device": "iPhone_13",
+    "page": "settings",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_13_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1883
+  },
+  {
+    "device": "iPhone_14",
+    "page": "home",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_14_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1620
+  },
+  {
+    "device": "iPhone_14",
+    "page": "participants",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_14_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1845
+  },
+  {
+    "device": "iPhone_14",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_14_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1803
+  },
+  {
+    "device": "iPhone_14",
+    "page": "settings",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_14_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1863
+  },
+  {
+    "device": "Pixel_5",
+    "page": "home",
+    "viewport": {
+      "width": 393,
+      "height": 727
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/Pixel_5_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1614
+  },
+  {
+    "device": "Pixel_5",
+    "page": "participants",
+    "viewport": {
+      "width": 393,
+      "height": 727
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/Pixel_5_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1830
+  },
+  {
+    "device": "Pixel_5",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 393,
+      "height": 727
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/Pixel_5_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1956
+  },
+  {
+    "device": "Pixel_5",
+    "page": "settings",
+    "viewport": {
+      "width": 393,
+      "height": 727
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/Pixel_5_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1874
+  },
+  {
+    "device": "Galaxy_S9",
+    "page": "home",
+    "viewport": {
+      "width": 320,
+      "height": 658
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/Galaxy_S9_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1700
+  },
+  {
+    "device": "Galaxy_S9",
+    "page": "participants",
+    "viewport": {
+      "width": 320,
+      "height": 658
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/Galaxy_S9_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1831
+  },
+  {
+    "device": "Galaxy_S9",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 320,
+      "height": 658
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/Galaxy_S9_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1845
+  },
+  {
+    "device": "Galaxy_S9",
+    "page": "settings",
+    "viewport": {
+      "width": 320,
+      "height": 658
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/Galaxy_S9_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1877
+  },
+  {
+    "device": "iPhone_12_Pro_Max",
+    "page": "home",
+    "viewport": {
+      "width": 428,
+      "height": 746
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_12_Pro_Max_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1575
+  },
+  {
+    "device": "iPhone_12_Pro_Max",
+    "page": "participants",
+    "viewport": {
+      "width": 428,
+      "height": 746
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_12_Pro_Max_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1842
+  },
+  {
+    "device": "iPhone_12_Pro_Max",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 428,
+      "height": 746
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_12_Pro_Max_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1875
+  },
+  {
+    "device": "iPhone_12_Pro_Max",
+    "page": "settings",
+    "viewport": {
+      "width": 428,
+      "height": 746
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_12_Pro_Max_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1847
+  },
+  {
+    "device": "iPhone_14_Pro_Max",
+    "page": "home",
+    "viewport": {
+      "width": 430,
+      "height": 740
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_14_Pro_Max_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1624
+  },
+  {
+    "device": "iPhone_14_Pro_Max",
+    "page": "participants",
+    "viewport": {
+      "width": 430,
+      "height": 740
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_14_Pro_Max_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1811
+  },
+  {
+    "device": "iPhone_14_Pro_Max",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 430,
+      "height": 740
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_14_Pro_Max_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1825
+  },
+  {
+    "device": "iPhone_14_Pro_Max",
+    "page": "settings",
+    "viewport": {
+      "width": 430,
+      "height": 740
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPhone_14_Pro_Max_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1897
+  },
+  {
+    "device": "iPad_Mini",
+    "page": "home",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPad_Mini_home.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1573
+  },
+  {
+    "device": "iPad_Mini",
+    "page": "participants",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPad_Mini_participants.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1800
+  },
+  {
+    "device": "iPad_Mini",
+    "page": "checkpoints",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPad_Mini_checkpoints.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1857
+  },
+  {
+    "device": "iPad_Mini",
+    "page": "settings",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "screenshot": "/home/ubuntu/palitana-yatra-app/test-screenshots/iPad_Mini_settings.png",
+    "status": "pass",
+    "errors": [],
+    "loadTime": 1862
+  }
+]

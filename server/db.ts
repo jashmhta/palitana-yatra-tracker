@@ -13,6 +13,8 @@ import {
   InsertSyncMetadata, syncMetadata,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
+import { googleSheetsLogger } from "./google-sheets-logger";
+import { DEFAULT_CHECKPOINTS } from "../constants/checkpoints";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -221,6 +223,37 @@ export async function createScanLog(data: InsertScanLog) {
   }
   
   await db.insert(scanLogs).values(data);
+  
+  // Log to Google Sheets automatically (async, non-blocking)
+  try {
+    // Get participant and checkpoint details for logging
+    const participant = await db.select().from(participants).where(eq(participants.uuid, data.participantUuid)).limit(1);
+    const checkpoint = DEFAULT_CHECKPOINTS.find(c => c.id === data.checkpointId);
+    
+    if (participant.length > 0) {
+      // Extract badge number from QR token (format: PYT-001, PYT-002, etc.)
+      const badgeMatch = participant[0].qrToken.match(/PYT-(\d+)/);
+      const badge = badgeMatch ? badgeMatch[1] : participant[0].qrToken;
+      
+      googleSheetsLogger.logScan({
+        uuid: data.uuid,
+        participantUuid: data.participantUuid,
+        participantName: participant[0].name,
+        participantBadge: badge,
+        checkpointId: data.checkpointId,
+        checkpointName: checkpoint?.description || `Checkpoint ${data.checkpointId}`,
+        deviceId: data.deviceId || null,
+        gpsLat: data.gpsLat || null,
+        gpsLng: data.gpsLng || null,
+        scannedAt: data.scannedAt,
+      }).catch(err => {
+        console.error("[createScanLog] Failed to log to Google Sheets:", err);
+      });
+    }
+  } catch (err) {
+    // Don't fail the scan if Google Sheets logging fails
+    console.error("[createScanLog] Google Sheets logging error:", err);
+  }
   
   return { success: true, duplicate: false };
 }

@@ -353,7 +353,7 @@
 
 
 ## Tab Bar Redesign - Center Scan Button
-- [ ] Redesign tab bar with center floating scan button (like MobiKwik)
-- [ ] Remove large floating scan button from home screen
-- [ ] Keep scan button prominent and accessible from all screens
-- [ ] Maintain 5 tabs: Scanner, Checkpoints, Scan (center), Pilgrims, Reports, Settings
+- [x] Redesign tab bar with center floating scan button (like MobiKwik)
+- [x] Remove large floating scan button from home screen
+- [x] Keep scan button prominent and accessible from all screens
+- [x] Maintain 5 tabs: Checkpoints, Pilgrims, (Scan center), Reports, Settings

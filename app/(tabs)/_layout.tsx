@@ -70,7 +70,7 @@ export default function TabLayout() {
 
   const handleScanPress = () => {
     // Navigate to scanner tab and trigger scan
-    router.push("/(tabs)/");
+    router.push("/");
   };
 
   return (
